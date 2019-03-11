@@ -1,0 +1,23 @@
+{
+  "name": "robocode-competition-backend",
+  "version": "1.0.0",
+  "description": "A backend for the Robocode online competition webapp.",
+  "main": "index.js",
+  "scripts": {
+    "start": "node ./index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/TimothySealy/robocode-competition-backend.git"
+  },
+  "author": "Timothy Sealy",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/TimothySealy/robocode-competition-backend/issues"
+  },
+  "homepage": "https://github.com/TimothySealy/robocode-competition-backend#readme",
+  "dependencies": {
+    "express": "^4.16.4"
+  }
+}
