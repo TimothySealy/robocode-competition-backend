@@ -67,6 +67,8 @@ router.use(require('./api_authorization'))
  * @api {post} /api/competitions Create a new competition
  *
  * @apiGroup Competitions
+ * @apiHeader {String} x-authentication The JWT access token.
+ *
  * @apiParam {String} code Competition code (id).
  * @apiParam {String} name Name of the competition.
  * @apiParam {String} [description] The competition's description.
