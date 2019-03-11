@@ -13,7 +13,7 @@ app.get('/', (req, res) => res.send('Hello World!'))
 
 // Connect to the database
 mongoose.Promise = require('bluebird')
-mongoose.connect(database)
+mongoose.connect(database, { useCreateIndex: true, useNewUrlParser: true })
 var db = mongoose.connection
 db.on('error', console.error.bind(console, 'connection error:'))
 db.once('open', function () {
