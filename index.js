@@ -1,3 +1,4 @@
+let config      = require('./config')
 let express     = require('express')
 let mongoose    = require('mongoose')
 let bodyParser  = require('body-parser')
@@ -22,7 +23,7 @@ mongoose.connect(config.database, { useCreateIndex: true, useNewUrlParser: true 
 var db = mongoose.connection
 db.on('error', console.error.bind(console, 'Connection error : '))
 db.once('open', function () {
-  console.log('* Connected to database: ' + database)
+  console.log('* Connected to database: ' + config.database)
 })
 
 // Launch app to listen to specified port

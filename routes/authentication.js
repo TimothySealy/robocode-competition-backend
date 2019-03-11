@@ -1,3 +1,4 @@
+let config  = require('../config')
 let jwt     = require('jsonwebtoken')
 let router  = require('express').Router()
 
