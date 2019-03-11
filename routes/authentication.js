@@ -7,14 +7,15 @@ var User = require('../models/User')
 /**
  * @api {post} /api/authenticate Authenticate a user
  * @apiGroup Authentication
- * @apiSuccess {Message} message A message containing a JWT token.
+ * @apiSuccess {Boolean} succes A boolean indicating whether the request was succesful.
+ * @apiSuccess {String} message Error or succes message
+ * @apiSuccess {String} token The JWT token for the succesful login.
  * @apiSuccessExample {json} Success
  *  HTTP/1.1 200 OK
  *  {
  *    "success": true,
  *    "message": "Authentication succesful.",
- *    "token": "eyJhbGciOiJIUzI1...",
- *    "expiresIn": 1440
+ *    "token": "eyJhbGciOiJIUzI1..."
  *   }
  * @apiErrorExample {json} Query error
  *    HTTP/1.1 500 Internal Server Error
@@ -43,14 +44,13 @@ router.post('/', function (req, res) {
           // Return token
           res.json({
             success: true,
-            message: 'Authentication succesful.',
-            token: token,
-            expiresIn: 1440
+            message: 'Authentication succesful',
+            token: token
           })
         } else {
           res.send({
             success: false,
-            message: 'Authentication failed.'
+            message: 'Authentication failed'
           })
         }
       })
