@@ -27,7 +27,7 @@ router.post('/', function (req, res) {
           // Return token
           res.json({
             success: true,
-            message: 'Authentication succesfull.',
+            message: 'Authentication succesful.',
             token: token,
             expiresIn: 1440
           })
