@@ -8,7 +8,7 @@ var User = require('../models/User')
  * @api {post} /api/authenticate Authenticate a user
  * @apiGroup Authentication
  * @apiSuccess {Boolean} succes A boolean indicating whether the request was succesful.
- * @apiSuccess {String} message Error or succes message
+ * @apiSuccess {String} message Error or succes message.
  * @apiSuccess {String} token The JWT token for the succesful login.
  * @apiSuccessExample {json} Success
  *  HTTP/1.1 200 OK

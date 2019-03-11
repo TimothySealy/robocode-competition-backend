@@ -5,6 +5,9 @@ var Competition = require('../models/Competition')
 /**
  * @api {get} /api/competition List all competitions
  * @apiGroup Competitions
+ *
+ * @apiSuccess {Boolean} succes A boolean indicating whether the request was succesful.
+ * @apiSuccess {String} message Error or succes message
  * @apiSuccess {Competition[]} competitions A list of competitions.
  * @apiSuccessExample {json} Success
  *  HTTP/1.1 200 OK
@@ -71,13 +74,13 @@ router.use(authz);
  * @apiParam {Number} [current_round] The competition's current round.
  * @apiParam {Number[]} [rounds] The rounds in the competition so far.
  *
- * @apiSuccess {Boolean} error A boolean indicating whether an error has occurred.
+ * @apiSuccess {Boolean} succes A boolean indicating whether the request was succesful.
  * @apiSuccess {String} message Error or succes message
  * @apiSuccessExample {json} Success
  *    HTTP/1.1 201 Created
  *    {
  *      "succes": true,
- *      "message": "Competition useb_2017 created."
+ *      "message": "Competition useb_2019 created"
  *    }
  * @apiErrorExample {json} Query error
  *    HTTP/1.1 409 Conflict
@@ -89,14 +92,14 @@ router.post('/', function (req, res) {
   if (!req.body.code || req.body.code === "") {
     return res.status(400).json({
       succes: false,
-      message: "Invalid code for competition."
+      message: "Invalid code for competition"
     })
   }
 
   if (!req.body.name || req.body.name === "") {
     return res.status(400).json({
       succes: false,
-      message: "Invalid name for competition."
+      message: "Invalid name for competition"
     })
   }
 
