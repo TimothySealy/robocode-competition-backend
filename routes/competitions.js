@@ -61,8 +61,7 @@ router.get('/', function (req, res) {
  * Protected endpoints below.
  *
  ***/
-var authz = require('./api_authorization');
-router.use(authz);
+router.use(require('./api_authorization'))
 
 /**
  * @api {post} /api/competition/ Create a new competition
