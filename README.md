@@ -14,3 +14,21 @@ A backend for the Robocode online competition webapp.
 ## (Optional) Run application using PM2
 1. (Optional) Install pm2: ```npm install pm2 -g```
 2. Run app (```pm2 start index.js```)
+
+
+# API documentation
+To generate api documentation please use the apidoc package.
+
+## Install
+```
+npm install -g apidoc
+```
+
+## Run
+You are only required to run this once (or every time the api changes).
+```
+apidoc -i "routes" -o apidoc
+```
+
+## See
+Run the server and go to <url>/apidoc to see the documentation.

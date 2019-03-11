@@ -18,6 +18,9 @@ app.use('/api/authenticate', authn)
 var help = require('./routes/help');
 app.use('/api', help);
 
+// Configure static folders
+app.use('/apidoc', express.static('apidoc'))
+
 // Hello world on homepage
 app.get('/', (req, res) => res.send('Hello World!'))
 
