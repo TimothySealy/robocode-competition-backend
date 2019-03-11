@@ -1,12 +1,17 @@
-let express   = require('express')
-let mongoose  = require('mongoose')
+let express     = require('express')
+let mongoose    = require('mongoose')
+let bodyParser  = require('body-parser')
+
+// Setup server port and database connection string
+var port = process.env.PORT || 3000
+var database = process.env.DB_URL || 'mongodb://localhost:27017/robocodecup'
 
 // Initialize the app
 let app = express()
 
-// Setup server port
-var port = process.env.PORT || 3000
-var database = process.env.DB_URL || 'mongodb://localhost:27017/robocodecup'
+// For parsing our request parameters
+app.use(bodyParser.urlencoded({ extended: false }))
+app.use(bodyParser.json())
 
 // Hello world on homepage
 app.get('/', (req, res) => res.send('Hello World!'))
