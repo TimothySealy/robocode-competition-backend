@@ -1,4 +1,5 @@
-let router  = require('express').Router()
+let router        = require('express').Router()
+let randomstring  = require('randomstring')
 
 var Team = require('../models/Team')
 
@@ -29,7 +30,10 @@ var Team = require('../models/Team')
  */
 router.get('/', function (req, res) {
   let where = {}
-  let fields = {secret_key: false}
+  let fields = {
+    secret_key: false,
+    _id: false
+  }
   Team.find(where, fields, function (err, teams) {
     if (err) {
       console.error(err);
@@ -52,6 +56,50 @@ router.get('/', function (req, res) {
  *
  ***/
 router.use(require('./api_authorization'))
+
+router.post('/all', function (req, res) {
+
+  // Validate input first.
+  if (!req.body.teams || req.body.teams.length == 0) {
+    return res.status(400).json({
+      succes: false,
+      message: "No teams to import"
+    })
+  }
+
+  var teams = req.body.teams
+  for (var i = 0, len = teams.length; i < len; i++) {
+    // Force lower cases for the team code.
+    teams[i].code = teams[i].code.toLowerCase()
+
+    // Generat a secret key if none is supplied.
+    if (teams[i].secret_key === undefined ) {
+      teams[i].secret_key = randomstring.generate({
+        length: 7,
+        charset: 'numeric'
+      })
+    }
+    // Sanity check for undefined competitions.
+    if (teams[i].competitions === undefined) {
+      teams[i].competitions = []
+    }
+  }
+
+  Team.collection.insert(teams, function (err, teamDocs) {
+    if (err) {
+      return res.status(500).json({
+        success: false,
+        message: 'The teams already exist'
+      })
+    }
+    var message = teamDocs.insertedCount + ' teams were successfully stored'
+    return res.status(201).json({
+      success: true,
+      message: message,
+      teams: teamDocs.ops
+    })
+  })
+})
 
 /**
  * @api {get} /api/teams/all List all teams (including secrets)
@@ -81,7 +129,7 @@ router.use(require('./api_authorization'))
  */
 router.get('/all', function (req, res) {
   let where = {}
-  let fields = {}
+  let fields = { _id: false }
   Team.find(where, fields, function (err, teams) {
     if (err) {
       console.error(err);
