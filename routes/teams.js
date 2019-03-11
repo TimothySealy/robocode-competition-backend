@@ -4,8 +4,10 @@ let randomstring  = require('randomstring')
 var Team = require('../models/Team')
 
 /**
- * @api {get} /api/teams List all teams
+ * @api {get} /api/teams[?competition=<competition_code>] List all teams
  * @apiGroup Teams
+ *
+ * @apiParam {String} [competition]  Competition code for which the teams should be filtered.
  *
  * @apiSuccess {Boolean} succes A boolean indicating whether the request was succesful.
  * @apiSuccess {String} message Error or succes message.
@@ -31,7 +33,7 @@ var Team = require('../models/Team')
 router.get('/', function (req, res) {
   var where = {}
   if (req.query.competition !== undefined){
-    where = {competitions: req.query.competition}
+    where = { competitions: req.query.competition }
   }
   let fields = {
     secret_key: false,
