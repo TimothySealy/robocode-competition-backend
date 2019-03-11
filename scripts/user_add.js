@@ -55,7 +55,6 @@ db.once('open', function () {
               })
               .then(function fulfilled(confirm) {
                 if (confirm === 'y') {
-                  console.log('User update: '+username+", "+password)
                   user.password = password
                   user.save(function (err, doc) {
                     if(err) {
