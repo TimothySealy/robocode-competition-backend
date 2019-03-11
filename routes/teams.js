@@ -29,10 +29,14 @@ var Team = require('../models/Team')
  *    HTTP/1.1 500 Internal Server Error
  */
 router.get('/', function (req, res) {
-  let where = {}
+  var where = {}
+  if (req.query.competition !== undefined){
+    where = {competitions: req.query.competition}
+  }
   let fields = {
     secret_key: false,
-    _id: false
+    _id: false,
+    __v: false
   }
   Team.find(where, fields, function (err, teams) {
     if (err) {
@@ -121,8 +125,7 @@ router.post('/all', function (req, res) {
         message: 'The teams already exist'
       })
     }
-    console.log(JSON.stringify(teamDocs, null, 4));
-    var message = teamDocs.length + ' teams successfully imported'
+    let message = teamDocs.length + ' teams successfully imported'
     return res.status(201).json({
       success: true,
       message: message,
