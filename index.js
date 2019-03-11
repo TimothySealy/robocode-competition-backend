@@ -13,6 +13,10 @@ let app = express()
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
 
+// Authentication end point
+var authn = require('./routes/authentication')
+app.use('/api/authenticate', authn)
+
 // Hello world on homepage
 app.get('/', (req, res) => res.send('Hello World!'))
 
