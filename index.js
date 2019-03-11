@@ -14,6 +14,10 @@ app.use(bodyParser.json())
 var authn = require('./routes/authentication')
 app.use('/api/authenticate', authn)
 
+
+var help = require('./routes/help');
+app.use('/api', help);
+
 // Hello world on homepage
 app.get('/', (req, res) => res.send('Hello World!'))
 
