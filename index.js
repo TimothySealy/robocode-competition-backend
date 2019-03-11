@@ -10,13 +10,15 @@ let app = express()
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
 
-// Authentication end point
+// API end point
 var authn = require('./routes/authentication')
 app.use('/api/authenticate', authn)
 
+var competitions = require('./routes/competitions')
+app.use('/api/competitions', competitions)
 
-var help = require('./routes/help');
-app.use('/api', help);
+var help = require('./routes/help')
+app.use('/api', help)
 
 // Configure static folders
 app.use('/apidoc', express.static('apidoc'))
