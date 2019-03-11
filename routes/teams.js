@@ -57,6 +57,35 @@ router.get('/', function (req, res) {
  ***/
 router.use(require('./api_authorization'))
 
+/**
+ * @api {post} /api/teams/all Import a list of teams (including secrets)
+ * @apiGroup Teams
+ * @apiHeader {String} x-authentication The JWT access token.
+ *
+ * @apiParam {Teams[]} teams The teams to imported.
+ *
+ * @apiSuccess {Boolean} succes A boolean indicating whether the request was succesful.
+ * @apiSuccess {String} message Error or succes message.
+ * @apiSuccess {Teams[]} teams A list of imported teams (including generate secrets if applicable).
+ * @apiSuccessExample {json} Success
+ *  HTTP/1.1 200 OK
+ *  {
+ *    "success": true,
+ *    "message": "3 teams succesfully successfully imported",
+ *    "teams": [{
+ *      "code": "nl.saxion.ehi1vsa1",
+ *      "name": "ehi1vsa1",
+ *      "logo": "teamlogo_default.png",
+ *      "secret_key": "5867374",
+ *      "competitions": ["useb_2019"]
+ *    },
+ *    {
+ *      ...
+ *    }]
+ *  }
+ * @apiErrorExample {json} Query error
+ *    HTTP/1.1 500 Internal Server Error
+ */
 router.post('/all', function (req, res) {
 
   // Validate input first.
@@ -85,18 +114,19 @@ router.post('/all', function (req, res) {
     }
   }
 
-  Team.collection.insert(teams, function (err, teamDocs) {
+  Team.insertMany(teams, function (err, teamDocs) {
     if (err) {
       return res.status(500).json({
         success: false,
         message: 'The teams already exist'
       })
     }
-    var message = teamDocs.insertedCount + ' teams were successfully stored'
+    console.log(JSON.stringify(teamDocs, null, 4));
+    var message = teamDocs.length + ' teams successfully imported'
     return res.status(201).json({
       success: true,
       message: message,
-      teams: teamDocs.ops
+      teams: teamDocs
     })
   })
 })
@@ -118,6 +148,7 @@ router.post('/all', function (req, res) {
  *      "code": "nl.saxion.ehi1vsa1",
  *      "name": "ehi1vsa1",
  *      "logo": "teamlogo_default.png",
+ *      "secret_key": "5867374",
  *      "competitions": ["useb_2019"]
  *    },
  *    {
