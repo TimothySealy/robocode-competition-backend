@@ -39,12 +39,12 @@ router.get('/', function (req, res) {
       console.error(err);
       res.status(500).json({
         success: false,
-        message: "Cannot find teams"
+        message: 'Cannot find teams'
       })
     }
     res.status(200).json({
       success: true,
-      message: "Teams succesfully retrieved",
+      message: 'Teams succesfully retrieved',
       teams: teams
     })
   })
@@ -92,7 +92,7 @@ router.post('/all', function (req, res) {
   if (!req.body.teams || req.body.teams.length == 0) {
     return res.status(400).json({
       succes: false,
-      message: "No teams to import"
+      message: 'No teams to import'
     })
   }
 
@@ -166,12 +166,12 @@ router.get('/all', function (req, res) {
       console.error(err);
       res.status(500).json({
         success: false,
-        message: "Cannot find teams"
+        message: 'Cannot find teams'
       })
     }
     res.status(200).json({
       success: true,
-      message: "Teams succesfully retrieved",
+      message: 'Teams succesfully retrieved',
       teams: teams
     })
   })

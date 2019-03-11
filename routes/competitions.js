@@ -42,12 +42,12 @@ router.get('/', function (req, res) {
       console.error(err);
       res.status(500).json({
         success: false,
-        message: "Cannot find competitions"
+        message: 'Cannot find competitions'
       })
     }
     let results = {
       success: true,
-      message: "Competitions succesfully retrieved",
+      message: 'Competitions succesfully retrieved',
       competitions: competitions
     }
     res.status(200).json(results)
@@ -93,14 +93,14 @@ router.post('/', function (req, res) {
   if (!req.body.code || req.body.code === "") {
     return res.status(400).json({
       succes: false,
-      message: "Invalid code for competition"
+      message: 'Invalid code for competition'
     })
   }
 
   if (!req.body.name || req.body.name === "") {
     return res.status(400).json({
       succes: false,
-      message: "Invalid name for competition"
+      message: 'Invalid name for competition'
     })
   }
 
@@ -123,7 +123,7 @@ router.post('/', function (req, res) {
   if (!valid_current_round) {
     return res.status(400).json({
       succes: false,
-      message: "Current round is invalid"
+      message: 'Current round is invalid'
     })
   }
 
@@ -140,13 +140,13 @@ router.post('/', function (req, res) {
     if (err) {
       return res.status(409).json({
         success: false,
-        message: "Can't save the new competition"
+        message: 'Can\'t save the new competition'
       })
     }
     // Return 201
     return res.status(201).json({
       success: true,
-      message: "Competition "+ newCompetition.code +" created"
+      message: 'Competition ' + newCompetition.code + ' created'
     })
   })
 })

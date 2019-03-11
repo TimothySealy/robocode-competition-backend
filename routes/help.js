@@ -5,7 +5,9 @@ router.get('/', function (req, res) {
     success: true,
     message: 'Endpoint retrieved successfully',
     routes: {
-      documenation : "/apidoc"
+      documenation : '/apidoc',
+      competitions: '/api/competitions',
+      teams: '/api/teams'
     }
   }
   res.status(200).json(help)

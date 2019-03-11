@@ -19,8 +19,8 @@ app.use('/api/teams', require('./routes/teams'))
 // Configure static folders
 app.use('/apidoc', express.static('apidoc'))
 
-// Hello world on homepage
-app.get('/', (req, res) => res.send('Hello World!'))
+// Details on homepage
+app.get('/', (req, res) => res.status(200).json({succes:true, message: 'See /api for more details'}))
 
 // Connect to the database
 mongoose.Promise = require('bluebird')
