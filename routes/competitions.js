@@ -3,11 +3,11 @@ let router  = require('express').Router()
 var Competition = require('../models/Competition')
 
 /**
- * @api {get} /api/competition List all competitions
+ * @api {get} /api/competitions List all competitions
  * @apiGroup Competitions
  *
  * @apiSuccess {Boolean} succes A boolean indicating whether the request was succesful.
- * @apiSuccess {String} message Error or succes message
+ * @apiSuccess {String} message Error or succes message.
  * @apiSuccess {Competition[]} competitions A list of competitions.
  * @apiSuccessExample {json} Success
  *  HTTP/1.1 200 OK
@@ -29,8 +29,8 @@ var Competition = require('../models/Competition')
  */
 router.get('/', function (req, res) {
 
-  var where = {}
-  var fields = {
+  let where = {}
+  let fields = {
     code: true, 
     name: true,
     description: true,
@@ -45,7 +45,7 @@ router.get('/', function (req, res) {
         message: "Cannot find competitions"
       })
     }
-    var results = {
+    let results = {
       success: true,
       message: "Competitions succesfully retrieved",
       competitions: competitions
@@ -64,7 +64,7 @@ router.get('/', function (req, res) {
 router.use(require('./api_authorization'))
 
 /**
- * @api {post} /api/competition/ Create a new competition
+ * @api {post} /api/competitions Create a new competition
  *
  * @apiGroup Competitions
  * @apiParam {String} code Competition code (id).
