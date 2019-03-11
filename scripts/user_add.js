@@ -2,6 +2,7 @@
 let co        = require('co')
 let prompt    = require('co-prompt')
 let program   = require('commander')
+let chalk     = require('chalk')
 let config    = require('../config')
 let mongoose  = require('mongoose')
 
@@ -22,32 +23,61 @@ db.once('open', function () {
       co(function *() {
         var username = yield prompt('username: ')
         var password = yield prompt.password('password: ')
-        console.log('user: %s, pass: %s', username, password)
+        return yield [username, password]
+      })
+      .then(function fulfilled(array) {
+        let username = array[0]
+        let password = array[1]
 
         // Create admin user.
-        var query = { name: username }
-        User.findOne(query, function(err, user) {
-          if (err) throw err
-          if (user) {
-            console.log('User already exists!')
-            process.exit(1)
-          } else {
-            var adminUser = new User({
-              name: username,
-              password: password
-            })
-            adminUser.save(function (err, doc) {
-              if(err) {
-                console.log('ERROR: Could not create admin user.')
-                process.exit(1)
-              } else {
-                console.log('* Admin user created!')
-                process.exit(0)
-              }
-            })
-          }
-        })
-     })
+        User.findOne({ name: username })
+          .then(function(user) {
+            if (!user) {
+              // Create new admin user
+              var adminUser = new User({
+                name: username,
+                password: password
+              })
+              adminUser.save(function (err, doc) {
+                if(err) {
+                  console.error(chalk.red('ERROR: Could not create admin user.'))
+                  process.exit(1)
+                } else {
+                  console.log(chalk.green('* Admin user ceated!'))
+                  process.exit(0)
+                }
+              })
+            } else {
+              // Update admin user (after confirmation)
+              console.error(chalk.red('User already exists!'))
+              co(function *() {
+                return yield prompt('Do you want to update the password? (y/n): ')
+              })
+              .then(function fulfilled(confirm) {
+                if (confirm === 'y') {
+                  console.log('User update: '+username+", "+password)
+                  user.password = password
+                  user.save(function (err, doc) {
+                    if(err) {
+                      console.error(chalk.red('ERROR: Could not update admin user.'))
+                      process.exit(1)
+                    } else {
+                      console.log(chalk.green('* Admin user updated!'))
+                      process.exit(0)
+                    }
+                  })
+                } else {
+                  console.log(chalk.yellow('User not updated!'))
+                  process.exit(0)
+                }
+              })
+            }
+          })
+      })
+      .catch(function rejected(err) {
+        console.error(chalk.red('error:', err.stack))
+        process.exit(1)
+      })
     })
     .parse(process.argv)
 })
