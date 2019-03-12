@@ -78,11 +78,11 @@ router.use(require('./api_authorization'))
  * @apiSuccess {Boolean} succes A boolean indicating whether the request was succesful.
  * @apiSuccess {String} message Error or succes message
  * @apiSuccessExample {json} Success
- *    HTTP/1.1 201 Created
- *    {
- *      "succes": true,
- *      "message": "Competition useb_2019 created"
- *    }
+ *  HTTP/1.1 201 Created
+ *  {
+ *    "succes": true,
+ *    "message": "Competition useb_2019 created"
+ *  }
  * @apiErrorExample {json} Query error
  *    HTTP/1.1 409 Conflict
  *    HTTP/1.1 400 Not Found
