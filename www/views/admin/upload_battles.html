@@ -1,0 +1,47 @@
+<div class="row">
+    <div class="col-sm-3">
+        <div class="sidebar-nav">
+            <div class="navbar navbar-default" role="navigation">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse"
+                            data-target=".sidebar-navbar-collapse">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <span class="visible-xs navbar-brand">Sidebar menu</span>
+                </div>
+                <div class="navbar-collapse collapse sidebar-navbar-collapse">
+                    <ul class="nav navbar-nav">
+                        <li><a href="#!/admin">Competitions</a></li>
+                        <li><a href="#!/admin/teams">Teams</a></li>
+                        <li class="active"><a href="#!/admin/upload_battles">Battles</a></li>
+                        <li><a href="#">Profile</a></li>
+                    </ul>
+                </div><!--/.nav-collapse -->
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-9">
+        <form>
+            <div ng-if="message.show" class="alert alert-info">
+                {{message.details}}
+            </div>
+            <h3>Upload battles for {{competition.name}}</h3>
+            <input type="hidden" ng-model='competition.code' id="competition">
+
+            <div class="form-group">
+                <label for="round">Choose a round</label>
+                <input type="text" ng-model='round' id="round" class="form-control" maxlength="3" placeholder="The round for which the results should be uploaded.">
+            </div>
+            <div class="form-group">
+                <label for="battlefile">File input</label>
+                <input type="file" file-model='battlefile' id="battlefile">
+                <p class="help-block">Please choose your battle result file</p>
+            </div>
+
+            <button class="btn btn-default" ng-click="sendFile()">Submit</button>
+        </form>
+    </div>
+</div>
