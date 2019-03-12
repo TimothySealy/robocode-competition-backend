@@ -2,6 +2,10 @@
   "name": "robocode-competition-backend",
   "version": "1.0.0",
   "description": "A backend for the Robocode online competition webapp.",
+  "apidoc": {
+    "name": "Robocode competition backend API",
+    "title": "Robocode competition backend"
+  },
   "main": "index.js",
   "scripts": {
     "start": "node ./index.js",
