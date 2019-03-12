@@ -56,6 +56,64 @@ router.get('/', function (req, res) {
   })
 })
 
+
+/**
+ * @api {get} /api/team/<team_code> Retrieve a single team
+ * @apiParam {String} team_code Team code (id).
+ *
+ * @apiGroup Teams
+ * @apiSuccess {String} code Team code (id).
+ * @apiSuccess {String} name Name of the team.
+ * @apiSuccess {String} logo The team's logo (url).
+ * @apiSuccess {String[]} competitions The competitions in the team is participating.
+ * @apiSuccessExample {json} Success
+ *    HTTP/1.1 200 OK
+ *    {
+ *      "code": "nl.saxion.ehi1vsa1",
+ *      "name": "ehi1vsa1",
+ *      "logo": "teamlogo_default.png",
+ *      "competitions": [
+ *          "useb_2019"
+ *      ]
+ *    }
+ * @apiErrorExample {json} Query error
+ *    HTTP/1.1 500 Internal Server Error
+ *    HTTP/1.1 404 Not Found
+ */
+router.get('/:team_code', function (req, res) {
+  let where = {
+    code: req.params.team_code
+  }
+  let fields = {
+    code: true,
+    name: true,
+    logo: true,
+    competitions: true,
+    _id: false
+  }
+  Team.findOne(where, fields, function (err, team) {
+    if (err) {
+      console.error(err);
+      res.status(500).json({
+        success: false,
+        message: 'Cannot find team'
+      })
+    }
+    if (team === null || team.length == 0) {
+      res.status(404).json({
+        success: false,
+        message: 'Cannot find team'
+      })
+    } else {
+      res.status(200).json({
+        success: true,
+        message: 'Team retrieved succesfully',
+        team: team
+      })
+    }
+  })
+})
+
 /***
  *
  * Protected endpoints below.
