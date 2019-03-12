@@ -3,8 +3,10 @@ let router  = require('express').Router()
 var Battle = require('../models/Battle')
 
 /**
- * @api {get} /api/battle[?team_name=<team_name>]  List all battles for a specific team.
+ * @api {get} /api/battle[?competition=<competition_code>&round=<round>team_name=<team_name>]  List all battles for a specific team.
  * @apiGroup Battles
+ * @apiParam {String} [competition]  Competition code for which the battle list should be filtered.
+ * @apiParam {String} [round]  Round for which the battle list should be filtered.
  * @apiParam {String} [team_name]  Team name for which the battle list should be filtered.
  *
  * @apiSuccess {Boolean} succes A boolean indicating whether the request was succesful.
@@ -61,9 +63,16 @@ router.get('/', function (req, res) {
   // TODO: add some paging here because the list of battles
   // can potentialy be very large.
   var where = {}
-  if (req.query.team_name !== undefined) {
-    where = {teams: {$elemMatch: {team_name: req.query.team_name}}}
+  if (req.query.competition !== undefined) {
+    where.competition = req.query.competition
   }
+  if (req.query.round !== undefined) {
+    where.round = req.query.round
+  }
+  if (req.query.team_name !== undefined) {
+    where.teams = {$elemMatch: {team_name: req.query.team_name}}
+  }
+
   var fields = {}
   Battle.find(where, fields, function (err, battles) {
     if (err) {
