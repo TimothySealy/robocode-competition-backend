@@ -9,4 +9,4 @@ var teamSchema = new Schema({
   competitions: {type: [String]}
 });
 
-module.exports = mongoose.model("Team", teamSchema)
+module.exports = mongoose.model('Team', teamSchema)

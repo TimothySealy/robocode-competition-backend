@@ -9,4 +9,4 @@ var competitionSchema = new Schema({
   rounds: [{type: Number}]
 })
 
-module.exports = mongoose.model("Competition", competitionSchema)
+module.exports = mongoose.model('Competition', competitionSchema)
