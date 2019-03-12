@@ -25,7 +25,7 @@ angular.module('robocodecupApp')
          * Retrieves the team data from the server
          */
         var updateTeamData = function() {
-            var url = '/api/team/' + $routeParams.teamid;
+            var url = '/api/teams/' + $routeParams.teamid;
             $log.info('TeamCtrl: Retrieving team details from ' + url);
             // Retrieve team details
             $http({
@@ -33,14 +33,16 @@ angular.module('robocodecupApp')
                 url: url
             }).then(function success(response) {
                 $log.info('TeamCtrl: Succesfully retrieved team details');
-                $scope.team = response.data;
+                $scope.team = response.data.team;
             }, function error(response) {
                 $log.error('TeamCtrl: There was an error: ' + response);
             });
         };
 
         var updateTeamBattlesPerRound = function() {
-            var url = '/api/competition/' + $scope.competition.code + '/round/' +  $scope.round + '/battle?team=' + $routeParams.teamid;
+          // + JSON.stringify(response, null, 4)
+            // var url = '/api/competition/' + $scope.competition.code + '/round/' +  $scope.round + '/battle?team=' + $routeParams.teamid;
+            var url = '/api/battles?competition=' + $scope.competition.code + '&round=' +  $scope.round + '&team=' + $routeParams.teamid;
             $log.info('TeamCtrl: Retrieving the battles from ' + url);
             // Retrieve the battles
             $http({

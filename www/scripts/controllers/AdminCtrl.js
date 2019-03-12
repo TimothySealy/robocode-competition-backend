@@ -145,7 +145,6 @@ angular.module('robocodecupApp').controller('AdminCtrl', function ($scope, $http
             // $log.info('AdminCtrl: File uploaded succesfully');
             $scope.message = {show:true, details: "File uploaded succesfully!"};
         },function(response){
-            $log.info('AdminCtrl: (resp) '+JSON.stringify(response, null, 4))
             handleError('Error uploading file', response);
             $scope.message = {show:true, details: response.data.message};
         });
