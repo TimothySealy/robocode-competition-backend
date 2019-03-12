@@ -13,6 +13,7 @@ app.use(bodyParser.json())
 // API endpoints
 app.use('/api', require('./routes/help'))
 app.use('/api/authenticate', require('./routes/authentication'))
+app.use('/api/battles', require('./routes/battles'))
 app.use('/api/competitions', require('./routes/competitions'))
 app.use('/api/teams', require('./routes/teams'))
 
