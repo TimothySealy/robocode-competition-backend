@@ -17,6 +17,7 @@ app.use('/api/battles', require('./routes/battles'))
 app.use('/api/competitions', require('./routes/competitions'))
 app.use('/api/rankings', require('./routes/rankings'))
 app.use('/api/teams', require('./routes/teams'))
+app.use('/api/secrets', require('./routes/secrets'))
 
 // Configure static folders
 app.use('/apidoc', express.static('apidoc'))
