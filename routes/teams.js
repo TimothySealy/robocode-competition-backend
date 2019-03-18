@@ -58,7 +58,7 @@ router.get('/', function (req, res) {
 
 
 /**
- * @api {get} /api/team/<team_code> Retrieve a single team
+ * @api {get} /api/teams/<team_code> Retrieve a single team
  * @apiParam {String} team_code Team code (id).
  *
  * @apiGroup Teams
@@ -190,52 +190,6 @@ router.post('/all', function (req, res) {
       success: true,
       message: message,
       teams: teamDocs
-    })
-  })
-})
-
-/**
- * @api {get} /api/teams/all List all teams (including secrets)
- * @apiGroup Teams
- * @apiHeader {String} x-authentication The JWT access token.
- *
- * @apiSuccess {Boolean} succes A boolean indicating whether the request was succesful.
- * @apiSuccess {String} message Error or succes message.
- * @apiSuccess {Teams[]} teams A list of teams.
- * @apiSuccessExample {json} Success
- *  HTTP/1.1 200 OK
- *  {
- *    "success": true,
- *    "message": "Teams succesfully retrieved",
- *    "teams": [{
- *      "code": "nl.saxion.ehi1vsa1",
- *      "name": "ehi1vsa1",
- *      "logo": "teamlogo_default.png",
- *      "secret_key": "5867374",
- *      "competitions": ["useb_2019"]
- *    },
- *    {
- *      ...
- *    }]
- *  }
- * @apiErrorExample {json} Query error
- *    HTTP/1.1 500 Internal Server Error
- */
-router.get('/all', function (req, res) {
-  let where = {}
-  let fields = { _id: false }
-  Team.find(where, fields, function (err, teams) {
-    if (err) {
-      console.error(err);
-      res.status(500).json({
-        success: false,
-        message: 'Cannot find teams'
-      })
-    }
-    res.status(200).json({
-      success: true,
-      message: 'Teams succesfully retrieved',
-      teams: teams
     })
   })
 })
