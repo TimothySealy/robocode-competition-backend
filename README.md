@@ -11,10 +11,17 @@ A backend for the Robocode online competition webapp.
 2. Install modules: ```npm install```.
 3. Run app: ```npm run start```. Note this will run the application in the current shell. Run the application using PM2 for long term availability (see instructions below)
 
-## (Optional) Run application using PM2
-1. (Optional) Install pm2: ```npm install pm2 -g```
+## (Recommended) Run application using PM2
+1. Install pm2: ```npm install pm2 -g```
 2. Run app (```pm2 start index.js```)
 
+## Create an admin user
+In the scripts directory you will find a small CLI script to insert an admin user to the database. Steps:
+1. Open a terminal and go to scripts directory
+2. Run ./user_add.js
+3. Follow the instructions and fill in the username and password.
+4. Validate the credentials by going to https://<base_url>/web/#!/admin and filling in the credentials in the login form.
+5. (Optional) You can update your password by running user_add.js and filling in the same username and your updated password.
 
 # API documentation
 To generate api documentation please use the apidoc package.
