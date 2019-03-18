@@ -94,7 +94,7 @@ angular.module('robocodecupApp').controller('AdminCtrl', function ($scope, $http
         $log.info('AdminCtrl: Competition '+$scope.competition);
         $http({
             method: 'GET',
-            url: '/api/teams/all',
+            url: '/api/secrets',
             headers: {'Content-Type': undefined, 'X-Authentication' : secretkey}
         }).then(function success(response) {
             $scope.teams = response.data.teams;
