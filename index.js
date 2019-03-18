@@ -38,3 +38,5 @@ db.once('open', function () {
 app.listen(config.port, function () {
   console.log('* Robocode competition backend listening on port ' + config.port)
 })
+
+module.exports = app
