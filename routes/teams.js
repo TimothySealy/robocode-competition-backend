@@ -1,5 +1,6 @@
 let router        = require('express').Router()
 let randomstring  = require('randomstring')
+let upload  = require('./team_upload.js')
 
 let formidable  = require('formidable')
 let path        = require('path')
@@ -119,44 +120,8 @@ router.get('/:team_code', function (req, res) {
 })
 
 // Handle an upload for a team
-router.post('/upload/team', function (req, res) {
-  // Create an form object
-  var form = new formidable.IncomingForm()
-  form.competition = req.header('X-Competition')
-  form.multiples = true
-
-  // Store all uploads in the /uploads directory
-  var filepath = path.join(__dirname + '/../uploads/admin/teams.json');
-  form.uploadDir = path.join(__dirname, '../uploads/admin/');
-
-  // When file has been uploaded successfully,
-  // rename it to it's orignal name.
-  form.on('fileBegin', function (name, file){
-    file.path = filepath
-  })
-
-  // Return a 500 in case of an error
-  form.on('error', function(err) {
-    res.status(500).json({
-      success: false,
-      message: err
-    })
-  })
-
-  // Send a response to the client when file upload is finished.
-  form.on('end', function() {
-    var teams = JSON.parse(fs.readFileSync(filepath, 'utf8'))
-    processTeams(teams, function(result) {
-      if (!result || !result.success) {
-        res.status(500).json(result)
-      } else {
-        res.status(201).json(result)
-      }
-    })
-  })
-
-  // Parse the incoming request.
-  form.parse(req)
+router.post('/upload/jar', function (req, res) {
+    upload.uploadJar(req, res);
 })
 
 /***
@@ -247,5 +212,46 @@ function processTeams(teams, callback) {
     return callback(result)
   })
 }
+
+// Handle an upload for a team
+router.post('/upload/team', function (req, res) {
+  // Create an form object
+  var form = new formidable.IncomingForm()
+  form.competition = req.header('X-Competition')
+  form.multiples = true
+
+  // Store all uploads in the /uploads directory
+  var filepath = path.join(__dirname + '/../uploads/admin/teams.json');
+  form.uploadDir = path.join(__dirname, '../uploads/admin/');
+
+  // When file has been uploaded successfully,
+  // rename it to it's orignal name.
+  form.on('fileBegin', function (name, file){
+    file.path = filepath
+  })
+
+  // Return a 500 in case of an error
+  form.on('error', function(err) {
+    res.status(500).json({
+      success: false,
+      message: err
+    })
+  })
+
+  // Send a response to the client when file upload is finished.
+  form.on('end', function() {
+    var teams = JSON.parse(fs.readFileSync(filepath, 'utf8'))
+    processTeams(teams, function(result) {
+      if (!result || !result.success) {
+        res.status(500).json(result)
+      } else {
+        res.status(201).json(result)
+      }
+    })
+  })
+
+  // Parse the incoming request.
+  form.parse(req)
+})
 
 module.exports = router
