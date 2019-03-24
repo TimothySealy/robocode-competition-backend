@@ -21,6 +21,7 @@ app.use('/api/secrets', require('./routes/secrets'))
 
 // Configure static folders
 app.use('/apidoc', express.static('apidoc'))
+app.use('/files', express.static('files'))
 app.use('/web', express.static('www'))
 
 // Configure redirect to /web
