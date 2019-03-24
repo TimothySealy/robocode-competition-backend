@@ -1,5 +1,5 @@
 let mongoose    = require('mongoose')
-// let RankingUtil = require('./util/RankingUtil')
+let RankingUtil = require('./util/RankingUtil')
 var Schema = mongoose.Schema
 
 var battleSchema = new Schema({
@@ -44,25 +44,25 @@ var battleSchema = new Schema({
   }]
 })
 
-//
-// // Update ranking when one battle is saved in database.
-// battleSchema.post('save', function(battleDoc, next) {
-//   // Update a single ranking.
-//   RankingUtil.updateRanking(
-//     battleDoc.competition,
-//     battleDoc.round,
-//     function (err, result) {
-//       next()
-//     })
-// })
-//
-// // Update ranking when many battles have been updated (in the
-// // case of the test data for example).
-// battleSchema.post('insertMany', function(battleDocs, next) {
-//   // Update all rankings
-//   RankingUtil.updateRankings(battleDocs, function (err, result) {
-//     next()
-//   })
-// })
+
+// Update ranking when one battle is saved in database.
+battleSchema.post('save', function(battleDoc, next) {
+  // Update a single ranking.
+  RankingUtil.updateRanking(
+    battleDoc.competition,
+    battleDoc.round,
+    function (err, result) {
+      next()
+    })
+})
+
+// Update ranking when many battles have been updated (in the
+// case of the test data for example).
+battleSchema.post('insertMany', function(battleDocs, next) {
+  // Update all rankings
+  RankingUtil.updateRankings(battleDocs, function (err, result) {
+    next()
+  })
+})
 
 module.exports = mongoose.model('Battle', battleSchema);
