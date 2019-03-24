@@ -52,10 +52,10 @@ angular.module('robocodecupApp')
                     $log.error('The API responded with NULL data, something went wrong: ' + response.statusText + ': ' + response.data);
                     return;
                 }
-                $scope.rankings = response.data.entries;
+                $scope.rankings = response.data.rankings[0].entries;
                 $log.info('RankingsCtrl: Received rankings succesfully');
             }, function error(response) {
-                $log.error('RankingsCtrl: There was an error: ' + response.statusText + ': ' + response.data);
+                $log.error('RankingsCtrl: There was an error: ' + response.message + ': ' + response.data);
             });
         };
 
