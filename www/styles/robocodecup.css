@@ -24,6 +24,11 @@
     vertical-align: middle;
 }
 
+.countdown {
+  font-size: 2.5em;
+  color: #4CAF50;
+  text-align: center;
+}
 
 /* make sidebar nav vertical */
 @media (min-width: 768px) {
