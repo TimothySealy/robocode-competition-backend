@@ -11,6 +11,14 @@ A backend for the Robocode online competition webapp.
 2. Install modules: ```npm install```.
 3. Run app: ```npm run start```. Note this will run the application in the current shell. Run the application using PM2 for long term availability (see instructions below)
 
+## Environment variables
+The following environment variables can be set:
+```
+PORT (default: 3000),
+JWT_SECRET (default: 'robocode-competition-jwt-secret')
+DB_URL (default: 'mongodb://localhost:27017/robocodecup')
+```
+
 ## (Recommended) Run application using PM2
 1. Install pm2: ```npm install pm2 -g```
 2. Run app (```pm2 start index.js```)
