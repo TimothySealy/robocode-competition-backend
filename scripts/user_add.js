@@ -21,8 +21,8 @@ db.once('open', function () {
     .option('-p, --password <password>', 'The user\'s password')
     .action(function(file) {
       co(function *() {
-        var username = yield prompt('username: ')
-        var password = yield prompt.password('password: ')
+        const username = program.hasOwnProperty("username") && program.username !== "" ? program.username : yield prompt('username: ')
+        const password = program.hasOwnProperty("password") && program.password !== "" ? program.password : yield prompt('password: ')
         return yield [username, password]
       })
       .then(function fulfilled(array) {
